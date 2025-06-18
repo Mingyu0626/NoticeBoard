@@ -2,27 +2,19 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 
-public class AccountManager : MonoBehaviour
+public class AccountManager : MonoBehaviourSingleton<AccountManager>
 {
-    public static AccountManager Instance;
-
     private Account              _myAccount;
 
     public AccountDTO CurrentAcount => _myAccount.ToDTO();
 
     private AccountRepository    _repository;
 
-    private void Awake()
+    private const string SALT = "981226";
+
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        base.Awake();
 
         Init();
     }
@@ -31,8 +23,6 @@ public class AccountManager : MonoBehaviour
     {
         _repository = new AccountRepository();
     }
-
-    private const string SALT = "981226";
 
     public Result TryRegister(string email, string nickname, string password)
     {
@@ -43,7 +33,6 @@ public class AccountManager : MonoBehaviour
         }
 
         // 비밀번호 규칙 검사
-
         var passwordSpecification = new AccountPasswordSpecification();
         if (!passwordSpecification.IsSatisfiedBy(password))
         {
@@ -75,8 +64,4 @@ public class AccountManager : MonoBehaviour
         
         return true;
     }
-
-    
-
-    
 }

@@ -28,7 +28,7 @@ public class Account
             throw new Exception(nicknameSpecification.ErrorMessage);
         }
 
-        
+
 
         // 비밀번호 검증
         if (string.IsNullOrEmpty(password))
