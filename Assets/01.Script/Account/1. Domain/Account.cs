@@ -28,14 +28,6 @@ public class Account
             throw new Exception(nicknameSpecification.ErrorMessage);
         }
 
-
-
-        // 비밀번호 검증
-        if (string.IsNullOrEmpty(password))
-        {
-            throw new Exception("비밀번호는 비어있을 수 없습니다.");
-        }
-
         Email = email;
         Nickname = nickname;
         Password = password;
