@@ -10,6 +10,10 @@ public class AccountDTO
     [FirestoreProperty]
     public string Password { get; }
 
+    public AccountDTO()
+    {
+
+    }
     // 간단 생성자 (입력값만 받음)
     public AccountDTO(string email, string nickname, string password)
     {
