@@ -11,6 +11,8 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
     private PostRepository _repository;
 
     public event Action<string> OnDataChanged;
+    public event Action OnDataAdded;
+    public event Action OnDataDeleted;
 
 
     protected override void Awake()
@@ -32,19 +34,19 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
     public async Task AddPost(PostDTO postDto)
     {
         await _repository.AddPost(postDto);
-        OnDataChanged?.Invoke(postDto.ID);
+        OnDataAdded?.Invoke();
+    }
+
+    public async Task DeletePost(string postId)
+    {
+        await _repository.DeletePost(postId);
+        OnDataDeleted?.Invoke();
     }
 
     public async Task UpdatePost(PostDTO postDto)
     {
         await _repository.UpdatePost(postDto);
         OnDataChanged?.Invoke(postDto.ID);
-    }
-
-    public async Task DeletePost(string postId)
-    {
-        await _repository.DeletePost(postId);
-        OnDataChanged?.Invoke(postId);
     }
 
     public async Task TryLikePost(string postId)

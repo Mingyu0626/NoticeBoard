@@ -1,16 +1,39 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_PostSlot : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private PostDTO _postDto;
+
+    public TextMeshProUGUI TitleTMP;
+    public TextMeshProUGUI NicknameTMP;
+    public TextMeshProUGUI UploadTimeTMP;
+    public TextMeshProUGUI DescriptionTMP;
+    public TextMeshProUGUI LikeCountTMP;
+
+    public Button MenuButton;
+    public Button LikeButton;
+
+    private void Start()
     {
-        
+        SetOnClickListener();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetOnClickListener()
     {
-        
+        MenuButton.onClick.AddListener
+            (() => UIManager.Instance.OnClickMenuButton(MenuButton.gameObject.GetComponent<RectTransform>()));
+        LikeButton.onClick.AddListener
+            (async () => await PostManager.Instance.TryLikePost(_postDto.ID));
+    }
+
+    public void Refresh(PostDTO postDto)
+    {
+        _postDto = postDto;
+        TitleTMP.SetText(postDto.Title);
+        NicknameTMP.SetText(postDto.Nickname);
+        UploadTimeTMP.SetText(postDto.UploadTime.ToString());
+        DescriptionTMP.SetText(postDto.Description);
     }
 }

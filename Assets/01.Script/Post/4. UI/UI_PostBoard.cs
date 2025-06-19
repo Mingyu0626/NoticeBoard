@@ -1,16 +1,90 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class UI_PostBoard : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField]
+    private Button _buttonWritePost;
+
+    private List<UI_PostSlot> _slots;
+
+    [SerializeField]
+    private GameObject _prefabPostSlot;
+
+    [SerializeField]
+    private VerticalLayoutGroup _verticalLayoutGroup;
+
+    private void Awake()
     {
-        
+        InitSlot();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        Refresh();
+        PostManager.Instance.OnDataChanged += ((postId) => Refresh(postId));
+        PostManager.Instance.OnDataAdded += Refresh;
+        PostManager.Instance.OnDataDeleted += Refresh;
+    }
+
+    private void AdjustSlot(int postCount)
+    {
+        if (_slots.Count < postCount)
+        {
+            while (_slots.Count < postCount)
+            {
+                AddSlot();
+            }
+        }
+        else if (postCount < _slots.Count)
+        {
+            RemoveSlot();
+        }
+    }
+
+    private void Refresh()
+    {
+        List<PostDTO> postList = PostManager.Instance.Posts;
+        AdjustSlot(postList.Count);
+
+        for (int i = 0; i < postList.Count; i++)
+        {
+            _slots[i].Refresh(postList[i]);
+        }
+    }
+
+    private void Refresh(string postId)
+    {
+        List<PostDTO> postList = PostManager.Instance.Posts;
+        AdjustSlot(postList.Count);
+
+        for (int i = 0; i < postList.Count; i++)
+        {
+            if (postList[i].ID.Equals(postId))
+            {
+                _slots[i].Refresh(postList[i]);
+                return;
+            }
+        }
+    }
+
+    private void InitSlot()
+    {
+        _slots = _verticalLayoutGroup.gameObject.GetComponentsInChildren<UI_PostSlot>(true).ToList();
+    }
+
+    private void AddSlot()
+    {
+        GameObject slot = Instantiate(_prefabPostSlot, _verticalLayoutGroup.transform);
+        slot.name = $"{_prefabPostSlot.name} ({_slots.Count})";
+        _slots.Add(slot.GetComponent<UI_PostSlot>());
+    }
+
+    private void RemoveSlot()
+    {
+        Destroy(_slots[_slots.Count - 1].gameObject);
     }
 }
