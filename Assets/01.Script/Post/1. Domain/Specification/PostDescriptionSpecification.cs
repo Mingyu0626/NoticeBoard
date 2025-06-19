@@ -1,0 +1,16 @@
+using UnityEngine;
+
+public class PostDescriptionSpecification : ISpecification<string>
+{
+    public string ErrorMessage { get; private set; }
+
+    public bool IsSatisfiedBy(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            ErrorMessage = "내용은 비어있을 수 없습니다.";
+            return false;
+        }
+        return true;
+    }
+}

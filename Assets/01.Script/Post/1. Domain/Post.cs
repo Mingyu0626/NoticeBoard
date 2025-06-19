@@ -14,6 +14,43 @@ public class Post
 
     public Post(string id, string title, string description, string email, string nickname, DateTime uploadTime, List<string> likeAccounts)
     {
+        var titleSpecification = new PostTitleSpecification();
+        if (!titleSpecification.IsSatisfiedBy(title))
+        {
+            throw new Exception(titleSpecification.ErrorMessage);
+        }
+
+        var descriptionSpecification = new PostDescriptionSpecification();
+        if (!descriptionSpecification.IsSatisfiedBy(description))
+        {
+            throw new Exception(descriptionSpecification.ErrorMessage);
+        }
+
+        var emailSpecification = new AccountEmailSpecification();
+        if (!emailSpecification.IsSatisfiedBy(email))
+        {
+            throw new Exception(emailSpecification.ErrorMessage);
+        }
+
+        var nicknameSpecification = new AccountNicknameSpecification();
+        if (!nicknameSpecification.IsSatisfiedBy(nickname))
+        {
+            throw new Exception(nicknameSpecification.ErrorMessage);
+        }
+
+        var uploadTimeSpecification = new PostUploadTimeSpecification();
+        if (!uploadTimeSpecification.IsSatisfiedBy(uploadTime))
+        {
+            throw new Exception(uploadTimeSpecification.ErrorMessage);
+        }
+
+        var likeAccountsSpecification = new PostLikeAccountsSpecification();
+        if (!likeAccountsSpecification.IsSatisfiedBy(likeAccounts))
+        {
+            throw new Exception(likeAccountsSpecification.ErrorMessage);
+        }
+
+
         ID = id;
         Title = title;
         Description = description;
