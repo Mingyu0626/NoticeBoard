@@ -20,6 +20,7 @@ public class FirebaseManager : MonoBehaviourSingleton<FirebaseManager>
     protected override void Awake()
     {
         base.Awake();
+        Init();
     }
 
     private void Start()
@@ -42,6 +43,7 @@ public class FirebaseManager : MonoBehaviourSingleton<FirebaseManager>
                 _app = FirebaseApp.DefaultInstance;
                 _auth = FirebaseAuth.DefaultInstance;
                 _db = FirebaseFirestore.DefaultInstance;
+                PostManager.Instance.Init();
             }
             else
             {
