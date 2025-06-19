@@ -27,8 +27,9 @@ public class UI_PostBoard : MonoBehaviour
         Refresh();
         PostManager.Instance.OnDataChanged += ((postId) => Refresh(postId));
         PostManager.Instance.OnDataAdded += Refresh;
-        PostManager.Instance.OnDataDeleted += Refresh;
+        PostManager.Instance.OnDataDeleted += ((postId) => DeleteSlot(postId));
     }
+
 
     private void AdjustSlot(int postCount)
     {
@@ -71,6 +72,12 @@ public class UI_PostBoard : MonoBehaviour
         }
     }
 
+    private void DeleteSlot(string postId)
+    {
+        // TODO : 여기부터 진행
+    }
+
+
     private void InitSlot()
     {
         _slots = _verticalLayoutGroup.gameObject.GetComponentsInChildren<UI_PostSlot>(true).ToList();
@@ -78,9 +85,12 @@ public class UI_PostBoard : MonoBehaviour
 
     private void AddSlot()
     {
-        GameObject slot = Instantiate(_prefabPostSlot, _verticalLayoutGroup.transform);
-        slot.name = $"{_prefabPostSlot.name} ({_slots.Count})";
-        _slots.Add(slot.GetComponent<UI_PostSlot>());
+        if (int.TryParse(_slots[_slots.Count - 1].name.Split('_')[0], out int lastSlotNumber))
+        {
+            GameObject slot = Instantiate(_prefabPostSlot, _verticalLayoutGroup.transform);
+            slot.name = $"{_prefabPostSlot.name}_{lastSlotNumber}";
+            _slots.Add(slot.GetComponent<UI_PostSlot>());
+        }
     }
 
     private void RemoveSlot()

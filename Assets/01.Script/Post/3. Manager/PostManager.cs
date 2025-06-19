@@ -12,7 +12,7 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
 
     public event Action<string> OnDataChanged;
     public event Action OnDataAdded;
-    public event Action OnDataDeleted;
+    public event Action<string> OnDataDeleted;
 
 
     protected override void Awake()
@@ -40,7 +40,7 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
     public async Task DeletePost(string postId)
     {
         await _repository.DeletePost(postId);
-        OnDataDeleted?.Invoke();
+        OnDataDeleted?.Invoke(postId);
     }
 
     public async Task UpdatePost(PostDTO postDto)
