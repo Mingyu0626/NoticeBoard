@@ -1,8 +1,14 @@
+using Firebase.Firestore;
+
+[FirestoreData]
 public class AccountDTO
 {
-    public string Email;
-    public string Nickname;
-    public string Password;
+    [FirestoreProperty]
+    public string Email { get; }
+    [FirestoreProperty]
+    public string Nickname { get; }
+    [FirestoreProperty]
+    public string Password { get; }
 
     // 간단 생성자 (입력값만 받음)
     public AccountDTO(string email, string nickname, string password)

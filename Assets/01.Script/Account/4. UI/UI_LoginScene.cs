@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,6 +31,10 @@ public class UI_LoginScene : MonoBehaviour
     [Header("회원가입")]
     public UI_InputFields RegisterInputFields;
 
+    [Header("버튼")]
+    public Button         LoginButton;
+    public Button         RegisterButton;
+
     [Header("트위닝")]
     public float          WarningShakeTime      = 1f;
     public float          WarningShakeMagnitude = 5f;
@@ -38,6 +43,9 @@ public class UI_LoginScene : MonoBehaviour
 
     private void Start()
     {
+        LoginButton.onClick.AddListener(async () => await Login());
+        RegisterButton.onClick.AddListener(async () => await Register());
+
         OnClickGoToLoginButton();
     }
 
@@ -60,7 +68,7 @@ public class UI_LoginScene : MonoBehaviour
     }
 
     // 회원가입
-    public void Register()
+    public async Task Register()
     {
         // 1. 아이디 입력을 확인한다.
         string email = RegisterInputFields.EmailInputField.text;
@@ -103,7 +111,7 @@ public class UI_LoginScene : MonoBehaviour
             return;
         }
 
-        Result result = AccountManager.Instance.TryRegister(email, nickname, password);
+        Result result = await AccountManager.Instance.TryRegister(email, nickname, password);
         if (result.IsSuccess)
         {
             // 5. 로그인 창으로 돌아간다.
@@ -118,7 +126,7 @@ public class UI_LoginScene : MonoBehaviour
     }
 
     // 로그인
-    public void Login()
+    public async Task Login()
     {
         // 1. 이메일을 입력을 확인한다.
         string email = LoginInputFields.EmailInputField.text;
@@ -139,7 +147,7 @@ public class UI_LoginScene : MonoBehaviour
             return;
         }
 
-        if (AccountManager.Instance.TryLogin(email, password))
+        if (await AccountManager.Instance.TryLogin(email, password))
         {
             SceneManager.LoadScene(1);
         }

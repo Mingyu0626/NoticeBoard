@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class AccountManager : MonoBehaviourSingleton<AccountManager>
@@ -24,14 +25,8 @@ public class AccountManager : MonoBehaviourSingleton<AccountManager>
         _repository = new AccountRepository();
     }
 
-    public Result TryRegister(string email, string nickname, string password)
+    public async Task<Result> TryRegister(string email, string nickname, string password)
     {
-        AccountSaveData saveData = _repository.Find(email);
-        if (saveData != null)
-        {
-            return new Result(false, "이미 가입한 이메일입니다.");
-        }
-
         // 비밀번호 규칙 검사
         var passwordSpecification = new AccountPasswordSpecification();
         if (!passwordSpecification.IsSatisfiedBy(password))
@@ -43,25 +38,28 @@ public class AccountManager : MonoBehaviourSingleton<AccountManager>
         Account account = new Account(email, nickname, encryptedPassword);
 
         // 레포 저장
-        _repository.Save(account.ToDTO());
+        Result result = await _repository.Register(account.ToDTO());
 
-        return new Result(true);
+        return result;
     }
 
-    public bool TryLogin(string email, string password)
+    public async Task<bool> TryLogin(string email, string password)
     {
-        AccountSaveData saveData = _repository.Find(email);
-        if (saveData == null)
+        if (!await _repository.IsAccountExists(email))
         {
             return false;
         }
 
-        if (CryptoUtil.Verify(password, saveData.Password, SALT))
+        if (await _repository.Login(new AccountDTO(email, "", password)))
         {
-            _myAccount = new Account(saveData.Email, saveData.Nickname, saveData.Password);
-            return true;
+            AccountDTO saveData = await _repository.GetAccount(email);
+            if (saveData != null && CryptoUtil.Verify(password, saveData.Password, SALT))
+            {
+                _myAccount = new Account(saveData.Email, saveData.Nickname, saveData.Password);
+                return true;
+            }
         }
         
-        return true;
+        return false;
     }
 }
