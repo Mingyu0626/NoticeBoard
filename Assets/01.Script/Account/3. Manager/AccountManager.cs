@@ -45,19 +45,24 @@ public class AccountManager : MonoBehaviourSingleton<AccountManager>
 
     public async Task<bool> TryLogin(string email, string password)
     {
-        if (!await _repository.IsAccountExists(email))
+        AccountDTO saveData = await _repository.GetAccount(email);
+        if (saveData == null)
         {
             return false;
         }
 
-        if (await _repository.Login(new AccountDTO(email, "", password)))
+        var passwordSpecification = new AccountPasswordSpecification();
+        if (!passwordSpecification.IsSatisfiedBy(password))
         {
-            AccountDTO saveData = await _repository.GetAccount(email);
-            if (saveData != null && CryptoUtil.Verify(password, saveData.Password, SALT))
-            {
-                _myAccount = new Account(saveData.Email, saveData.Nickname, saveData.Password);
-                return true;
-            }
+            return false;
+        }
+
+        string encryptedPassword = CryptoUtil.Encryption(password, SALT);
+
+        if (await _repository.Login(new AccountDTO(email, "", encryptedPassword)))
+        {
+            _myAccount = new Account(saveData.Email, saveData.Nickname, saveData.Password);
+            return true;
         }
         
         return false;

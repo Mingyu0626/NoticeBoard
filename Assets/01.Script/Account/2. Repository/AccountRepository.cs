@@ -69,12 +69,6 @@ public class AccountRepository
         }
     }
 
-    public async Task<bool> IsAccountExists(string email)
-    {
-        var providers = await FirebaseManager.Instance.Auth.FetchProvidersForEmailAsync(email);
-        return providers != null && providers.Count() > 0;
-    }
-
     public async Task<AccountDTO> GetAccount(string email)
     {
         try

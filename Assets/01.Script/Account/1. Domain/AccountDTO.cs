@@ -4,11 +4,11 @@ using Firebase.Firestore;
 public class AccountDTO
 {
     [FirestoreProperty]
-    public string Email { get; }
+    public string Email { get; set; }
     [FirestoreProperty]
-    public string Nickname { get; }
+    public string Nickname { get; set; }
     [FirestoreProperty]
-    public string Password { get; }
+    public string Password { get; set; }
 
     public AccountDTO()
     {
