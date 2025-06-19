@@ -115,4 +115,19 @@ public class PostRepository
             Debug.LogError($"게시글 삭제 실패: {ex}");
         }
     }
+
+    public async Task<bool> TryLikePost(string postId)
+    {
+        string email = AccountManager.Instance.CurrentAcount.Email;
+        Post post = new Post(await GetPost(postId));
+        List<string> likeAccounts = post.LikeAccounts;
+        if (likeAccounts.Contains(email))
+        {
+            Debug.LogWarning("이미 좋아요를 누르셨습니다.");
+            return false;
+        }
+        post.AddLikeAccount(email);
+        await AddPost(post.ToDTO());
+        return true;
+    }
 }

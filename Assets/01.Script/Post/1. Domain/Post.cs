@@ -75,4 +75,9 @@ public class Post
     {
         return new PostDTO(this);
     }
+
+    public void AddLikeAccount(string email)
+    {
+        LikeAccounts.Add(email);
+    }
 }
