@@ -116,9 +116,8 @@ public class PostRepository
         }
     }
 
-    public async Task<bool> TryLikePost(string postId)
+    public async Task<bool> TryLikePost(string postId, string email)
     {
-        string email = AccountManager.Instance.CurrentAcount.Email;
         Post post = new Post(await GetPost(postId));
         List<string> likeAccounts = post.LikeAccounts;
         if (likeAccounts.Contains(email))

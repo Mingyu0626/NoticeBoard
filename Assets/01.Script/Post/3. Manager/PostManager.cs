@@ -10,7 +10,8 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
 
     private PostRepository _repository;
 
-    public event Action OnDataChanged;
+    public event Action<string> OnDataChanged;
+
 
     protected override void Awake()
     {
@@ -31,26 +32,27 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
     public async Task AddPost(PostDTO postDto)
     {
         await _repository.AddPost(postDto);
-        OnDataChanged?.Invoke();
+        OnDataChanged?.Invoke(postDto.ID);
     }
 
     public async Task UpdatePost(PostDTO postDto)
     {
         await _repository.UpdatePost(postDto);
-        OnDataChanged?.Invoke();
+        OnDataChanged?.Invoke(postDto.ID);
     }
 
     public async Task DeletePost(string postId)
     {
         await _repository.DeletePost(postId);
-        OnDataChanged?.Invoke();
+        OnDataChanged?.Invoke(postId);
     }
 
     public async Task TryLikePost(string postId)
     {
-        if (await _repository.TryLikePost(postId))
+        string email = AccountManager.Instance.CurrentAcount.Email;
+        if (await _repository.TryLikePost(postId, email))
         {
-            OnDataChanged?.Invoke();
+            OnDataChanged?.Invoke(postId);
         }
     }
 }
