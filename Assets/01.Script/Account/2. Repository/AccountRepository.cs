@@ -12,6 +12,11 @@ public class AccountRepository
 
     public async Task<Result> Register(AccountDTO account)
     {
+        AccountDTO saveData = await GetAccount(account.Email);
+        if (saveData != null)
+        {
+            return new Result(false, "이미 가입된 이메일입니다.");
+        }
         try
         {
             await FirebaseManager.Instance.Auth.CreateUserWithEmailAndPasswordAsync(account.Email, account.Password);
@@ -21,16 +26,6 @@ public class AccountRepository
         catch (Exception ex)
         {
             string errorMessage = $"회원가입에 실패했습니다. {ex.Message}";
-
-            if (ex is Firebase.FirebaseException firebaseEx)
-            {
-                var errorCode = (Firebase.Auth.AuthError)firebaseEx.ErrorCode;
-                if (errorCode == Firebase.Auth.AuthError.EmailAlreadyInUse)
-                {
-                    errorMessage = "이미 가입된 이메일입니다.";
-                    
-                }
-            }
 
             return new Result(false, errorMessage);
         }
