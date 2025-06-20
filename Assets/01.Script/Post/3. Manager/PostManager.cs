@@ -36,6 +36,10 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
         foreach (PostDTO dto in postDtoList)
         {
             _posts.Add(new Post(dto));
+            if (int.TryParse(dto.ID, out int id))
+            {
+                _idNumber = Math.Min(id, _idNumber);
+            }
         }
         OnDataAdded?.Invoke();
     }
