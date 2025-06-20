@@ -2332,6 +2332,7 @@ MonoBehaviour:
   - {fileID: 78574368}
   - {fileID: 78574367}
   - {fileID: 78574366}
+  _confirmButton: {fileID: 1900143439}
 --- !u!224 &2093527537 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6280984608168404231, guid: aadafe50f5130904386b1bab465b9bee, type: 3}
@@ -2432,6 +2433,7 @@ MonoBehaviour:
   _inputFields:
   - {fileID: 225260700118198348}
   - {fileID: 225260699928581498}
+  _confirmButton: {fileID: 6224179059534130859}
 --- !u!114 &225260699928581498 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4919904258310614364, guid: 22d7327b2e5bc414489eedfbbab69ab9, type: 3}

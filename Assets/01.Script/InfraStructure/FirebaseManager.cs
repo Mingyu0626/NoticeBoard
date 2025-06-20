@@ -43,7 +43,6 @@ public class FirebaseManager : MonoBehaviourSingleton<FirebaseManager>
                 _app = FirebaseApp.DefaultInstance;
                 _auth = FirebaseAuth.DefaultInstance;
                 _db = FirebaseFirestore.DefaultInstance;
-                PostManager.Instance.Init();
             }
             else
             {

@@ -2,15 +2,24 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class TabInputNavigator : MonoBehaviour
 {
     [SerializeField]
     private List<TMP_InputField> _inputFields;
 
+    [SerializeField]
+    private Button               _confirmButton;
+
     private void Update()
     {
         if (_inputFields.Count <= 0) return;
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            _confirmButton.onClick.Invoke();
+        }
 
         if (Input.GetKeyDown(KeyCode.Tab))
         {
