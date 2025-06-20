@@ -1,16 +1,21 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_PostRead : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public Button BackButton;
+    public Button MenuButton;
 
-    // Update is called once per frame
-    void Update()
+    public TextMeshProUGUI TitleTMP;
+    public TextMeshProUGUI NicknameTMP;
+    public TextMeshProUGUI UploadTimeTMP;
+    public TextMeshProUGUI DescriptionTMP;
+    public TextMeshProUGUI LikeCountTMP;
+
+    private void Start()
     {
-        
+        BackButton.onClick.AddListener(() => UIManager.Instance.OnClickBackButton(gameObject));
+        MenuButton.onClick.AddListener(() => UIManager.Instance.OnClickMenuButton(GetComponent<RectTransform>()));
     }
 }

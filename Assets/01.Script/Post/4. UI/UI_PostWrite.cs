@@ -1,16 +1,40 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_PostWrite : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Button BackButton;
+    public Button CompleteButton;
+
+    public InputField TitleInputField;
+    public InputField DescriptionInputField;
+
+    private void OnEnable()
     {
-        
+        TitleInputField.text = string.Empty;
+        DescriptionInputField.text = string.Empty;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        BackButton.onClick.AddListener(() => UIManager.Instance.OnClickBackButton(gameObject));
+        CompleteButton.onClick.AddListener(() => OnClickCompleteButton());
+    }
+
+    private async void OnClickCompleteButton()
+    {
+        Post post = new Post
+            (PostManager.Instance.GetID(),
+            TitleInputField.text,
+            DescriptionInputField.text,
+            AccountManager.Instance.CurrentAcount.Email,
+            AccountManager.Instance.CurrentAcount.Nickname,
+            DateTime.Now,
+            new List<string>()
+            );
+
+        await PostManager.Instance.AddPost(post.ToDTO());
     }
 }

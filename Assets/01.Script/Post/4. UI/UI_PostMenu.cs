@@ -1,16 +1,25 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_PostMenu : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Button ModifyButton;
+    public Button DeleteButton;
+
+    private void Start()
     {
-        
+        ModifyButton.onClick.AddListener(() => OnClickModifyButton());
+        DeleteButton.onClick.AddListener(() => OnClickDeleteButton());
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void OnClickModifyButton()
     {
-        
+
+    }
+
+    private void OnClickDeleteButton()
+    {
+
     }
 }

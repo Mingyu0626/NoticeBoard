@@ -14,6 +14,8 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
     public event Action OnDataAdded;
     public event Action<string> OnDataDeleted;
 
+    private int _idNumber;
+
 
     protected override void Awake()
     {
@@ -29,6 +31,12 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
     public void Init()
     {
         _repository = new PostRepository();
+    }
+
+    private string GetID()
+    {
+        _idNumber++;
+        return _idNumber.ToString();
     }
 
     public async Task AddPost(PostDTO postDto)
