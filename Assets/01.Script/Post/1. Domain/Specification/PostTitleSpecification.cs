@@ -6,7 +6,7 @@ public class PostTitleSpecification : ISpecification<string>
 {
     public string ErrorMessage { get; private set; }
 
-    private static readonly Regex TitleRegex = new Regex(@"^{1,50}$", RegexOptions.Compiled);
+    private static readonly Regex TitleRegex = new Regex(@"^.{1,50}$", RegexOptions.Compiled);
 
     public bool IsSatisfiedBy(string value)
     {
