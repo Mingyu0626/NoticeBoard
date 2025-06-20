@@ -32,12 +32,6 @@ public class PostLikeAccountsSpecification : ISpecification<(List<string>, strin
             return false;
         }
 
-        if (value.Item1.Find(email => email == myEmail) != null)
-        {
-            ErrorMessage = "이미 좋아요를 누르셨습니다.";
-            return false;
-        }
-
         return true;
     }
 }

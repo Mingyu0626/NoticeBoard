@@ -98,4 +98,9 @@ public class Post
     {
         LikeAccounts.Add(email);
     }
+
+    public void DeleteLikeAccount(string email)
+    {
+        LikeAccounts.Remove(email);
+    }
 }

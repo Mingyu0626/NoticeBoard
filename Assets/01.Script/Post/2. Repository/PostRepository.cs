@@ -156,7 +156,16 @@ public class PostRepository
             return false;
         }
 
-        post.AddLikeAccount(email);
+        if (likeAccounts.Contains(email))
+        {
+            post.DeleteLikeAccount(email);
+            Debug.Log("좋아요 해제");
+        }
+        else
+        {
+            post.AddLikeAccount(email);
+            Debug.Log("좋아요 추가");
+        }
         await UpdatePost(post.ToDTO());
         return true;
     }
