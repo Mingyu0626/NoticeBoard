@@ -38,7 +38,7 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
             _posts.Add(new Post(dto));
             if (int.TryParse(dto.ID, out int id))
             {
-                _idNumber = Math.Min(id, _idNumber);
+                _idNumber = Math.Max(id, _idNumber);
             }
         }
         OnDataAdded?.Invoke();
@@ -47,6 +47,7 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
     public string GetID()
     {
         _idNumber++;
+        Debug.Log($"Id Number : {_idNumber}");
         return _idNumber.ToString();
     }
 
