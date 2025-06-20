@@ -1,33 +1,35 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Firebase.Firestore;
 
 [FirestoreData]
 public class PostDTO
 {
     [FirestoreDocumentId]
-    public string ID { get; }
+    public string ID { get; private set; }
 
     [FirestoreProperty]
-    public string Title { get; }
+    public string Title { get; private set; }
 
     [FirestoreProperty]
-    public string Description { get; }
+    public string Description { get; private set; }
 
     [FirestoreProperty]
-    public string Email { get; }
+    public string Email { get; private set; }
 
     [FirestoreProperty]
-    public string Nickname { get; }
+    public string Nickname { get; private set; }
 
     [FirestoreProperty]
-    public DateTime UploadTime { get; }
+    public DateTime UploadTime { get; private set; }
 
     [FirestoreProperty]
-    public List<string> LikeAccounts { get; }
+    public List<string> LikeAccounts { get; private set; }
 
     public PostDTO()
     {
+        
         LikeAccounts = new List<string>();
     }
 
