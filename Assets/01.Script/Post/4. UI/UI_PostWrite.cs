@@ -37,5 +37,6 @@ public class UI_PostWrite : MonoBehaviour
             );
 
         await PostManager.Instance.AddPost(post.ToDTO());
+        gameObject.SetActive(false);
     }
 }
