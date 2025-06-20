@@ -154,7 +154,7 @@ public class PostRepository
             return false;
         }
         post.AddLikeAccount(email);
-        await AddPost(post.ToDTO());
+        await UpdatePost(post.ToDTO());
         return true;
     }
 }
