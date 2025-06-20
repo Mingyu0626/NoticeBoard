@@ -20,4 +20,14 @@ public class UI_PostRead : MonoBehaviour
         BackButton.onClick.AddListener(() => UIManager.Instance.OnClickBackButton(gameObject));
         MenuButton.onClick.AddListener(() => UIManager.Instance.OnClickMenuButton(GetComponent<RectTransform>(), _post));
     }
+
+    public void Refresh(PostDTO postDto)
+    {
+        _post = postDto;
+        TitleTMP.SetText(postDto.Title);
+        NicknameTMP.SetText(postDto.Nickname);
+        UploadTimeTMP.SetText(postDto.UploadTime.ToString());
+        DescriptionTMP.SetText(postDto.Description);
+        LikeCountTMP.SetText(postDto.LikeAccounts.Count.ToString());
+    }
 }

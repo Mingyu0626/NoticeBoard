@@ -13,6 +13,7 @@ public class UI_PostSlot : MonoBehaviour
     public TextMeshProUGUI DescriptionTMP;
     public TextMeshProUGUI LikeCountTMP;
 
+    public Button ReadButton;
     public Button MenuButton;
     public Button LikeButton;
 
@@ -23,6 +24,9 @@ public class UI_PostSlot : MonoBehaviour
 
     private void SetOnClickListener()
     {
+        ReadButton.onClick.AddListener
+            (() => UIManager.Instance.OnClickReadButton(_postDto));
+
         MenuButton.onClick.AddListener
             (() => UIManager.Instance.OnClickMenuButton(MenuButton.gameObject.GetComponent<RectTransform>(), _postDto));
         LikeButton.onClick.AddListener
