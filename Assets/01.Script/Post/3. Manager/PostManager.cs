@@ -33,7 +33,7 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
         _repository = new PostRepository();
     }
 
-    private string GetID()
+    public string GetID()
     {
         _idNumber++;
         return _idNumber.ToString();
