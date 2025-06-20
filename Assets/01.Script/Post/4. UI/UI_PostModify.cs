@@ -41,6 +41,8 @@ public class UI_PostModify : MonoBehaviour
             );
 
         await PostManager.Instance.UpdatePost(post.ToDTO());
+
+        gameObject.SetActive(false);
     }
 
 
