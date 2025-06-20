@@ -76,6 +76,17 @@ public class Post
         return new PostDTO(this);
     }
 
+    public void UpdatePost(PostDTO postDto)
+    {
+        ID = postDto.ID;
+        Title = postDto.Title;
+        Description = postDto.Description;
+        Email = postDto.Email;
+        Nickname = postDto.Nickname;
+        UploadTime = postDto.UploadTime;
+        LikeAccounts = postDto.LikeAccounts;
+    }
+
     public void AddLikeAccount(string email)
     {
         LikeAccounts.Add(email);
