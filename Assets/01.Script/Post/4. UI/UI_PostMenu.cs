@@ -10,7 +10,7 @@ public class UI_PostMenu : MonoBehaviour
 
     private void Start()
     {
-        ModifyButton.onClick.AddListener(() => OnClickModifyButton());
+        ModifyButton.onClick.AddListener(() => UIManager.Instance.OnClickModifyButton(_selectedPost));
         DeleteButton.onClick.AddListener(() => OnClickDeleteButton());
     }
 
@@ -19,13 +19,9 @@ public class UI_PostMenu : MonoBehaviour
         _selectedPost = selectedPost;
     }
 
-    private void OnClickModifyButton()
+    private async void OnClickDeleteButton()
     {
-
-    }
-
-    private void OnClickDeleteButton()
-    {
-
+        await PostManager.Instance.DeletePost(_selectedPost.ID);
+        UIManager.Instance.CloseAllTab();
     }
 }

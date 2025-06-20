@@ -47,4 +47,10 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         // _postModify.Refresh(selectedPost);
         _postModify.gameObject.SetActive(true);
     }
+
+    public void CloseAllTab()
+    {
+        _postMenu.gameObject.SetActive(false);
+        _postRead.gameObject.SetActive(false);
+    }
 }
