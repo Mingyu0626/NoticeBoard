@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class UI_PostBoard : MonoBehaviour
 {
-    [SerializeField]
-    private Button _buttonWritePost;
+    public Button WriteButton;
 
     private List<UI_PostSlot> _slots;
 
@@ -28,6 +27,8 @@ public class UI_PostBoard : MonoBehaviour
         PostManager.Instance.OnDataChanged += ((postId) => Refresh(postId));
         PostManager.Instance.OnDataAdded += Refresh;
         PostManager.Instance.OnDataDeleted += ((postId) => DeleteSlot(postId));
+
+        WriteButton.onClick.AddListener(() => UIManager.Instance.OnClickWriteButton());
     }
 
 
@@ -74,7 +75,6 @@ public class UI_PostBoard : MonoBehaviour
 
     private void DeleteSlot(string postId)
     {
-        // TODO : 여기부터 진행
         _slots.Remove(_slots.Find(slot => slot.PostDto.ID == postId));
     }
 

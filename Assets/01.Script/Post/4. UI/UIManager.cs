@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     private UI_PostRead _postRead;
 
     [SerializeField]
+    private UI_PostWrite _postWrite;
+
+    [SerializeField]
     private UI_PostModify _postModify;
 
     public event Action OnDeletePost;
@@ -45,9 +48,14 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         _postRead.gameObject.SetActive(true);
     }
 
+    public void OnClickWriteButton()
+    {
+        _postWrite.gameObject.SetActive(true);
+    }
+
     public void OnClickModifyButton(PostDTO selectedPost)
     {
-        // _postModify.Refresh(selectedPost);
+        _postModify.Refresh(selectedPost);
         _postModify.gameObject.SetActive(true);
     }
 
