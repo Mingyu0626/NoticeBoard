@@ -25,6 +25,34 @@ public class PostRepository
         }
     }
 
+    public async Task<List<PostDTO>> GetAllPosts()
+    {
+        List<PostDTO> postList = new List<PostDTO>();
+
+        try
+        {
+            QuerySnapshot snapshot = await FirebaseManager.Instance.Database
+                .Collection("noticeboard")
+                .OrderByDescending("UploadTime")
+                .GetSnapshotAsync();
+
+            foreach (DocumentSnapshot doc in snapshot.Documents)
+            {
+                if (doc.Exists)
+                {
+                    PostDTO post = doc.ConvertTo<PostDTO>();
+                    postList.Add(post);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"게시글 목록 조회 실패: {ex}");
+        }
+
+        return postList;
+    }
+
     public async Task<List<PostDTO>> GetPosts(int limit)
     {
         List<PostDTO> postList = new List<PostDTO>();

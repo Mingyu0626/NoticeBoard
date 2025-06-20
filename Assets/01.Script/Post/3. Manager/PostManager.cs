@@ -28,9 +28,15 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
         
     }
 
-    public void Init()
+    public async void Init()
     {
         _repository = new PostRepository();
+        _posts = new List<Post>();
+        List<PostDTO> postDtoList = await _repository.GetAllPosts();
+        foreach (PostDTO dto in postDtoList)
+        {
+            _posts.Add(new Post(dto));
+        }
     }
 
     public string GetID()
