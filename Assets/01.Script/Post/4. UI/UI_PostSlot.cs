@@ -17,6 +17,10 @@ public class UI_PostSlot : MonoBehaviour
     public Button MenuButton;
     public Button LikeButton;
 
+    public Image LikeButtonImage;
+    public Sprite LikeSprite;
+    public Sprite NotLikeSprite;
+
     private void Start()
     {
         SetOnClickListener();
@@ -41,5 +45,14 @@ public class UI_PostSlot : MonoBehaviour
         UploadTimeTMP.SetText(postDto.UploadTime.ToString());
         DescriptionTMP.SetText(postDto.Description);
         LikeCountTMP.SetText(postDto.LikeAccounts.Count.ToString());
+
+        if (_postDto.LikeAccounts.Contains(AccountManager.Instance.CurrentAcount.Email))
+        {
+            LikeButtonImage.sprite = LikeSprite;
+        }
+        else
+        {
+            LikeButtonImage.sprite = NotLikeSprite;
+        }
     }
 }

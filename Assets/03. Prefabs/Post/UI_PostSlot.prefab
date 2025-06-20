@@ -1396,6 +1396,9 @@ MonoBehaviour:
   ReadButton: {fileID: 5197586849844987630}
   MenuButton: {fileID: 6487787361449499211}
   LikeButton: {fileID: 4927404310612424777}
+  LikeButtonImage: {fileID: 8091700318780359058}
+  LikeSprite: {fileID: 21300000, guid: f144fee5f2e140d46a47da881ac22bdc, type: 3}
+  NotLikeSprite: {fileID: 21300000, guid: 9677d62fcc2728b4390aa57e519e492f, type: 3}
 --- !u!1 &8805494979797437239
 GameObject:
   m_ObjectHideFlags: 0

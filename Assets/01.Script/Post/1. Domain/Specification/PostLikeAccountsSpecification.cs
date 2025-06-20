@@ -31,7 +31,6 @@ public class PostLikeAccountsSpecification : ISpecification<(List<string>, strin
             ErrorMessage = "올바른 이메일 형식이 아닙니다.";
             return false;
         }
-
         return true;
     }
 }
