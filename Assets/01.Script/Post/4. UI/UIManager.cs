@@ -45,7 +45,10 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         }
 
         _postMenu.transform.SetParent(clickedButtonRectTransform);
-        _postMenu.transform.localPosition = new Vector3(-clickedButtonRectTransform.rect.width, 0, 0);
+        _postMenu.transform.localPosition = new Vector3(
+            -clickedButtonRectTransform.rect.width,
+            clickedButtonRectTransform.rect.height / 2,
+            0);
         
 
         _postMenu.Refresh(selectedPost);
