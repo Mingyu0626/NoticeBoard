@@ -150,6 +150,7 @@ public class UI_LoginScene : MonoBehaviour
         if (await AccountManager.Instance.TryLogin(email, password))
         {
             SceneManager.LoadScene(1);
+            return;
         }
 
         ShowResultText(LoginInputFields, "이메일과 비밀번호를 확인해 주세요.");
