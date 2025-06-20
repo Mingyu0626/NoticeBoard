@@ -37,6 +37,13 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     public void OnClickMenuButton(RectTransform clickedButtonRectTransform, PostDTO selectedPost)
     {
+        if (_postMenu.transform.parent.gameObject == clickedButtonRectTransform.gameObject)
+        {
+            bool isActive = _postMenu.gameObject.activeInHierarchy;
+            _postMenu.gameObject.SetActive(!isActive);
+            return;
+        }
+
         _postMenu.transform.SetParent(clickedButtonRectTransform);
         _postMenu.transform.localPosition = new Vector3(-clickedButtonRectTransform.rect.width, 0, 0);
         
