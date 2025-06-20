@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,8 +9,8 @@ public class UI_PostWrite : MonoBehaviour
     public Button BackButton;
     public Button CompleteButton;
 
-    public InputField TitleInputField;
-    public InputField DescriptionInputField;
+    public TMP_InputField TitleInputField;
+    public TMP_InputField DescriptionInputField;
 
     private void OnEnable()
     {
