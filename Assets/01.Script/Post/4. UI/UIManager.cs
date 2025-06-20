@@ -37,6 +37,8 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     public void OnClickMenuButton(RectTransform clickedButtonRectTransform, PostDTO selectedPost)
     {
+        _postMenu.Refresh(selectedPost);
+
         if (_postMenu.transform.parent.gameObject == clickedButtonRectTransform.gameObject)
         {
             bool isActive = _postMenu.gameObject.activeInHierarchy;
@@ -51,7 +53,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
             0);
         
 
-        _postMenu.Refresh(selectedPost);
+        
         _postMenu.gameObject.SetActive(true);
     }
 

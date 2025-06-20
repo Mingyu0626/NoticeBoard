@@ -10,7 +10,7 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
 
     private PostRepository _repository;
 
-    public event Action<string> OnDataChanged;
+    public event Action<PostDTO> OnDataChanged;
     public event Action OnDataAdded;
     public event Action<string> OnDataDeleted;
 
@@ -62,7 +62,7 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
     {
         await _repository.UpdatePost(postDto);
         _posts.Find(post => post.ID == postDto.ID).UpdatePost(postDto);
-        OnDataChanged?.Invoke(postDto.ID);
+        OnDataChanged?.Invoke(postDto);
     }
 
     public async Task DeletePost(string postId)
@@ -90,7 +90,7 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
             {
                 post.AddLikeAccount(email);
             }
-            OnDataChanged?.Invoke(postId);
+            OnDataChanged?.Invoke(post.ToDTO());
         }
     }
 }

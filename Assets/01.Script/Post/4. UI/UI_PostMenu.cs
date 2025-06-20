@@ -11,7 +11,9 @@ public class UI_PostMenu : MonoBehaviour
     private void Start()
     {
         ModifyButton.onClick.AddListener(() => UIManager.Instance.OnClickModifyButton(_selectedPost));
+        ModifyButton.onClick.AddListener(() => gameObject.SetActive(false));
         DeleteButton.onClick.AddListener(() => OnClickDeleteButton());
+        DeleteButton.onClick.AddListener(() => gameObject.SetActive(false));
         UIManager.Instance.OnDeletePost += (() => gameObject.SetActive(false));
     }
 

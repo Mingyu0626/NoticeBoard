@@ -20,6 +20,7 @@ public class UI_PostRead : MonoBehaviour
         BackButton.onClick.AddListener(() => UIManager.Instance.OnClickBackButton(gameObject));
         MenuButton.onClick.AddListener(() => UIManager.Instance.OnClickMenuButton(MenuButton.GetComponent<RectTransform>(), _post));
         UIManager.Instance.OnDeletePost += (() => gameObject.SetActive(false));
+        PostManager.Instance.OnDataChanged += Refresh;
     }
 
     public void Refresh(PostDTO postDto)

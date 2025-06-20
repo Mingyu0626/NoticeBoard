@@ -59,7 +59,7 @@ public class UI_PostBoard : MonoBehaviour
         }
     }
 
-    private void Refresh(string postId)
+    private void Refresh(PostDTO post)
     {
         Debug.Log("Refresh(postId)");
         List<PostDTO> postList = PostManager.Instance.Posts;
@@ -67,7 +67,7 @@ public class UI_PostBoard : MonoBehaviour
 
         for (int i = 0; i < postList.Count; i++)
         {
-            if (postList[i].ID.Equals(postId))
+            if (postList[i].ID.Equals(post.ID))
             {
                 Debug.Log("id가 동일한 슬롯 발견");
                 Debug.Log(postList[i].LikeAccounts.Count);
