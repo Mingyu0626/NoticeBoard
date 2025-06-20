@@ -23,8 +23,7 @@ public class UI_PostBoard : MonoBehaviour
 
     private void Start()
     {
-        Refresh();
-        PostManager.Instance.OnDataChanged += ((postId) => Refresh(postId));
+        PostManager.Instance.OnDataChanged += Refresh;
         PostManager.Instance.OnDataAdded += Refresh;
         PostManager.Instance.OnDataDeleted += ((postId) => DeleteSlot(postId));
 
@@ -56,9 +55,6 @@ public class UI_PostBoard : MonoBehaviour
     {
         List<PostDTO> postList = PostManager.Instance.Posts;
         AdjustSlot(postList.Count);
-
-        Debug.Log($"Slot Count : {_slots.Count}");
-        Debug.Log($"PostList Count : {postList.Count}");
 
         for (int i = 0; i < postList.Count; i++)
         {
@@ -94,11 +90,10 @@ public class UI_PostBoard : MonoBehaviour
             slot.name = $"{_prefabPostSlot.name}_0";
             _slots.Add(slot.GetComponent<UI_PostSlot>());
         }
-        else if (int.TryParse(_slots[_slots.Count - 1].name.Split('_')[1], out int lastSlotNumber))
+        else if (int.TryParse(_slots[_slots.Count - 1].name.Split('_')[2], out int lastSlotNumber))
         {
             GameObject slot = Instantiate(_prefabPostSlot, _verticalLayoutGroup.transform);
             slot.name = $"{_prefabPostSlot.name}_{lastSlotNumber}";
-            Debug.Log($"LastSlotNumber : {lastSlotNumber}");
             _slots.Add(slot.GetComponent<UI_PostSlot>());
         }
     }
