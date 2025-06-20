@@ -18,7 +18,7 @@ public class UI_PostRead : MonoBehaviour
     private void Start()
     {
         BackButton.onClick.AddListener(() => UIManager.Instance.OnClickBackButton(gameObject));
-        MenuButton.onClick.AddListener(() => UIManager.Instance.OnClickMenuButton(GetComponent<RectTransform>(), _post));
+        MenuButton.onClick.AddListener(() => UIManager.Instance.OnClickMenuButton(MenuButton.GetComponent<RectTransform>(), _post));
         UIManager.Instance.OnDeletePost += (() => gameObject.SetActive(false));
     }
 

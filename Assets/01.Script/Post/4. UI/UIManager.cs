@@ -37,7 +37,10 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     public void OnClickMenuButton(RectTransform clickedButtonRectTransform, PostDTO selectedPost)
     {
-        _postMenu.GetComponent<RectTransform>().anchoredPosition = clickedButtonRectTransform.anchoredPosition;
+        _postMenu.transform.SetParent(clickedButtonRectTransform);
+        _postMenu.transform.localPosition = new Vector3(-clickedButtonRectTransform.rect.width, 0, 0);
+        
+
         _postMenu.Refresh(selectedPost);
         _postMenu.gameObject.SetActive(true);
     }
