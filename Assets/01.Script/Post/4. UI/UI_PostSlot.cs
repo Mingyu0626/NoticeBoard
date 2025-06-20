@@ -40,5 +40,6 @@ public class UI_PostSlot : MonoBehaviour
         NicknameTMP.SetText(postDto.Nickname);
         UploadTimeTMP.SetText(postDto.UploadTime.ToString());
         DescriptionTMP.SetText(postDto.Description);
+        LikeCountTMP.SetText(postDto.LikeAccounts.Count.ToString());
     }
 }
