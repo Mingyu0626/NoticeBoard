@@ -7,14 +7,10 @@ using UnityEngine;
 public class UI_PostBoard : MonoBehaviour
 {
     public Button WriteButton;
+    public GameObject PostSlotPrefab;
+    public VerticalLayoutGroup VerticalLayoutGroup;
 
     private List<UI_PostSlot> _slots;
-
-    [SerializeField]
-    private GameObject _prefabPostSlot;
-
-    [SerializeField]
-    private VerticalLayoutGroup _verticalLayoutGroup;
 
     private void Awake()
     {
@@ -90,14 +86,14 @@ public class UI_PostBoard : MonoBehaviour
     {
         if (_slots.Count == 0)
         {
-            GameObject slot = Instantiate(_prefabPostSlot, _verticalLayoutGroup.transform);
-            slot.name = $"{_prefabPostSlot.name}_0";
+            GameObject slot = Instantiate(PostSlotPrefab, VerticalLayoutGroup.transform);
+            slot.name = $"{PostSlotPrefab.name}_0";
             _slots.Add(slot.GetComponent<UI_PostSlot>());
         }
         else if (int.TryParse(_slots[_slots.Count - 1].name.Split('_')[2], out int lastSlotNumber))
         {
-            GameObject slot = Instantiate(_prefabPostSlot, _verticalLayoutGroup.transform);
-            slot.name = $"{_prefabPostSlot.name}_{lastSlotNumber}";
+            GameObject slot = Instantiate(PostSlotPrefab, VerticalLayoutGroup.transform);
+            slot.name = $"{PostSlotPrefab.name}_{lastSlotNumber}";
             _slots.Add(slot.GetComponent<UI_PostSlot>());
         }
     }

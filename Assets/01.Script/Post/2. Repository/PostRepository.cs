@@ -148,11 +148,14 @@ public class PostRepository
     {
         Post post = new Post(await GetPost(postId));
         List<string> likeAccounts = post.LikeAccounts;
-        if (likeAccounts.Contains(email))
+
+        var likeAccountsSpecification = new PostLikeAccountsSpecification();
+        if (!likeAccountsSpecification.IsSatisfiedBy((likeAccounts, email)))
         {
-            Debug.LogWarning("이미 좋아요를 누르셨습니다.");
+            Debug.LogWarning(likeAccountsSpecification.ErrorMessage);
             return false;
         }
+
         post.AddLikeAccount(email);
         await UpdatePost(post.ToDTO());
         return true;

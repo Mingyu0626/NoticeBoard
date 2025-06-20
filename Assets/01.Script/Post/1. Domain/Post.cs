@@ -45,7 +45,7 @@ public class Post
         }
 
         var likeAccountsSpecification = new PostLikeAccountsSpecification();
-        if (!likeAccountsSpecification.IsSatisfiedBy(likeAccounts))
+        if (!likeAccountsSpecification.IsSatisfiedBy((likeAccounts, email)))
         {
             throw new Exception(likeAccountsSpecification.ErrorMessage);
         }
@@ -78,13 +78,20 @@ public class Post
 
     public void UpdatePost(PostDTO postDto)
     {
-        ID = postDto.ID;
+        var titleSpecification = new PostTitleSpecification();
+        if (!titleSpecification.IsSatisfiedBy(postDto.Title))
+        {
+            throw new Exception(titleSpecification.ErrorMessage);
+        }
+
+        var descriptionSpecification = new PostDescriptionSpecification();
+        if (!descriptionSpecification.IsSatisfiedBy(postDto.Description))
+        {
+            throw new Exception(descriptionSpecification.ErrorMessage);
+        }
+
         Title = postDto.Title;
         Description = postDto.Description;
-        Email = postDto.Email;
-        Nickname = postDto.Nickname;
-        UploadTime = postDto.UploadTime;
-        LikeAccounts = postDto.LikeAccounts;
     }
 
     public void AddLikeAccount(string email)
