@@ -37,7 +37,6 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
         {
             _posts.Add(new Post(dto));
         }
-        OnDataAdded?.Invoke();
     }
 
     public string GetID()

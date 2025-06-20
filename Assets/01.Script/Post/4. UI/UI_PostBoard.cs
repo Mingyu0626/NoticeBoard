@@ -23,6 +23,7 @@ public class UI_PostBoard : MonoBehaviour
 
     private void Start()
     {
+        Refresh();
         PostManager.Instance.OnDataChanged += ((postId) => Refresh(postId));
         PostManager.Instance.OnDataAdded += Refresh;
         PostManager.Instance.OnDataDeleted += ((postId) => DeleteSlot(postId));
@@ -33,18 +34,21 @@ public class UI_PostBoard : MonoBehaviour
 
     private void AdjustSlot(int postCount)
     {
-        Debug.Log($"Slot Count : {_slots.Count}");
-        Debug.Log($"PostList Count : {postCount}");
-        if (_slots.Count < postCount)
+        int currentSlotCount = _slots.Count;
+        if (currentSlotCount < postCount)
         {
-            while (_slots.Count < postCount)
+            for (int i = currentSlotCount; i < postCount; i++)
             {
                 AddSlot();
             }
         }
-        else if (postCount < _slots.Count)
+        else if (postCount < currentSlotCount)
         {
-            RemoveSlot();
+
+            for (int i = currentSlotCount; i > postCount; i--)
+            {
+                RemoveSlot();
+            }
         }
     }
 
@@ -52,6 +56,9 @@ public class UI_PostBoard : MonoBehaviour
     {
         List<PostDTO> postList = PostManager.Instance.Posts;
         AdjustSlot(postList.Count);
+
+        Debug.Log($"Slot Count : {_slots.Count}");
+        Debug.Log($"PostList Count : {postList.Count}");
 
         for (int i = 0; i < postList.Count; i++)
         {
@@ -74,34 +81,35 @@ public class UI_PostBoard : MonoBehaviour
         }
     }
 
-    private void DeleteSlot(string postId)
-    {
-        _slots.Remove(_slots.Find(slot => slot.PostDto.ID == postId));
-    }
-
-
     private void InitSlot()
     {
-        _slots = _verticalLayoutGroup.gameObject.GetComponentsInChildren<UI_PostSlot>(true).ToList();
+        _slots = new List<UI_PostSlot>();
     }
 
     private void AddSlot()
     {
-        if (int.TryParse(_slots[_slots.Count - 1].name.Split('_')[0], out int lastSlotNumber))
+        if (_slots.Count == 0)
+        {
+            GameObject slot = Instantiate(_prefabPostSlot, _verticalLayoutGroup.transform);
+            slot.name = $"{_prefabPostSlot.name}_0";
+            _slots.Add(slot.GetComponent<UI_PostSlot>());
+        }
+        else if (int.TryParse(_slots[_slots.Count - 1].name.Split('_')[1], out int lastSlotNumber))
         {
             GameObject slot = Instantiate(_prefabPostSlot, _verticalLayoutGroup.transform);
             slot.name = $"{_prefabPostSlot.name}_{lastSlotNumber}";
             Debug.Log($"LastSlotNumber : {lastSlotNumber}");
             _slots.Add(slot.GetComponent<UI_PostSlot>());
         }
-        else
-        {
-
-        }
     }
 
     private void RemoveSlot()
     {
         Destroy(_slots[_slots.Count - 1].gameObject);
+    }
+
+    private void DeleteSlot(string postId)
+    {
+        _slots.Remove(_slots.Find(slot => slot.PostDto.ID == postId));
     }
 }
