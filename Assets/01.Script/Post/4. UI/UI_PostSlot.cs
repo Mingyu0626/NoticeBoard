@@ -24,7 +24,7 @@ public class UI_PostSlot : MonoBehaviour
     private void SetOnClickListener()
     {
         MenuButton.onClick.AddListener
-            (() => UIManager.Instance.OnClickMenuButton(MenuButton.gameObject.GetComponent<RectTransform>()));
+            (() => UIManager.Instance.OnClickMenuButton(MenuButton.gameObject.GetComponent<RectTransform>(), _postDto));
         LikeButton.onClick.AddListener
             (async () => await PostManager.Instance.TryLikePost(_postDto.ID));
     }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviourSingleton<UIManager>
 {
     [SerializeField]
-    private RectTransform _postMenuRectTransform;
+    private UI_PostMenu _postMenu;
 
     protected override void Awake()
     {
@@ -22,9 +22,10 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         layout.SetActive(false);
     }
 
-    public void OnClickMenuButton(RectTransform clickedButtonRectTransform)
+    public void OnClickMenuButton(RectTransform clickedButtonRectTransform, PostDTO selectedPost)
     {
-        _postMenuRectTransform.anchoredPosition = clickedButtonRectTransform.anchoredPosition;
-        _postMenuRectTransform.gameObject.SetActive(true);
+        _postMenu.GetComponent<RectTransform>().anchoredPosition = clickedButtonRectTransform.anchoredPosition;
+        _postMenu.Refresh(selectedPost);
+        _postMenu.gameObject.SetActive(true);
     }
 }

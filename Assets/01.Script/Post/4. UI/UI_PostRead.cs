@@ -13,9 +13,11 @@ public class UI_PostRead : MonoBehaviour
     public TextMeshProUGUI DescriptionTMP;
     public TextMeshProUGUI LikeCountTMP;
 
+    private PostDTO _post;
+
     private void Start()
     {
         BackButton.onClick.AddListener(() => UIManager.Instance.OnClickBackButton(gameObject));
-        MenuButton.onClick.AddListener(() => UIManager.Instance.OnClickMenuButton(GetComponent<RectTransform>()));
+        MenuButton.onClick.AddListener(() => UIManager.Instance.OnClickMenuButton(GetComponent<RectTransform>(), _post));
     }
 }
