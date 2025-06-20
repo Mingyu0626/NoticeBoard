@@ -77,6 +77,7 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
         string email = AccountManager.Instance.CurrentAcount.Email;
         if (await _repository.TryLikePost(postId, email))
         {
+            _posts.Find(post => post.ID == postId).AddLikeAccount(email);
             OnDataChanged?.Invoke(postId);
         }
     }
