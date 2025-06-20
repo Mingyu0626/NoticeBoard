@@ -75,6 +75,7 @@ public class UI_PostBoard : MonoBehaviour
     private void DeleteSlot(string postId)
     {
         // TODO : 여기부터 진행
+        _slots.Remove(_slots.Find(slot => slot.PostDto.ID == postId));
     }
 
 
@@ -89,6 +90,7 @@ public class UI_PostBoard : MonoBehaviour
         {
             GameObject slot = Instantiate(_prefabPostSlot, _verticalLayoutGroup.transform);
             slot.name = $"{_prefabPostSlot.name}_{lastSlotNumber}";
+            Debug.Log($"LastSlotNumber : {lastSlotNumber}");
             _slots.Add(slot.GetComponent<UI_PostSlot>());
         }
     }

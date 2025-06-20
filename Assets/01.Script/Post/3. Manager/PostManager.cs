@@ -34,19 +34,22 @@ public class PostManager : MonoBehaviourSingleton<PostManager>
     public async Task AddPost(PostDTO postDto)
     {
         await _repository.AddPost(postDto);
+        _posts.Add(new Post(postDto));
         OnDataAdded?.Invoke();
-    }
-
-    public async Task DeletePost(string postId)
-    {
-        await _repository.DeletePost(postId);
-        OnDataDeleted?.Invoke(postId);
     }
 
     public async Task UpdatePost(PostDTO postDto)
     {
         await _repository.UpdatePost(postDto);
+        _posts.Find(post => post.ID == postDto.ID).UpdatePost(postDto);
         OnDataChanged?.Invoke(postDto.ID);
+    }
+
+    public async Task DeletePost(string postId)
+    {
+        await _repository.DeletePost(postId);
+        _posts.Remove(_posts.Find(post => post.ID == postId));
+        OnDataDeleted?.Invoke(postId);
     }
 
     public async Task TryLikePost(string postId)

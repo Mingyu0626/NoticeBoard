@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class UI_PostSlot : MonoBehaviour
 {
     private PostDTO _postDto;
+    public PostDTO PostDto;
 
     public TextMeshProUGUI TitleTMP;
     public TextMeshProUGUI NicknameTMP;
