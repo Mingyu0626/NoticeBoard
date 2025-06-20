@@ -23,7 +23,6 @@ public class UI_PostBoard : MonoBehaviour
 
     private void Start()
     {
-        Refresh();
         PostManager.Instance.OnDataChanged += ((postId) => Refresh(postId));
         PostManager.Instance.OnDataAdded += Refresh;
         PostManager.Instance.OnDataDeleted += ((postId) => DeleteSlot(postId));
@@ -34,6 +33,8 @@ public class UI_PostBoard : MonoBehaviour
 
     private void AdjustSlot(int postCount)
     {
+        Debug.Log($"Slot Count : {_slots.Count}");
+        Debug.Log($"PostList Count : {postCount}");
         if (_slots.Count < postCount)
         {
             while (_slots.Count < postCount)
@@ -92,6 +93,10 @@ public class UI_PostBoard : MonoBehaviour
             slot.name = $"{_prefabPostSlot.name}_{lastSlotNumber}";
             Debug.Log($"LastSlotNumber : {lastSlotNumber}");
             _slots.Add(slot.GetComponent<UI_PostSlot>());
+        }
+        else
+        {
+
         }
     }
 

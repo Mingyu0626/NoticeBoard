@@ -1011,7 +1011,7 @@ GameObject:
   - component: {fileID: 8091700318780359058}
   - component: {fileID: 4927404310612424777}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button_Like
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1266,6 +1266,7 @@ GameObject:
   - component: {fileID: 2722889228060675369}
   - component: {fileID: 6667728478874990674}
   - component: {fileID: 5197586849844987630}
+  - component: {fileID: 4529193615552706506}
   m_Layer: 5
   m_Name: UI_PostSlot
   m_TagString: Untagged
@@ -1375,3 +1376,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4529193615552706506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6353664010577117833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f18a5eff8b200e41a9dafacab5f87f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TitleTMP: {fileID: 8409082431620223830}
+  NicknameTMP: {fileID: 402392354523463322}
+  UploadTimeTMP: {fileID: 8181840252272324978}
+  DescriptionTMP: {fileID: 1596050933001151646}
+  LikeCountTMP: {fileID: 2126264269824063293}
+  ReadButton: {fileID: 5197586849844987630}
+  MenuButton: {fileID: 6487787361449499211}
+  LikeButton: {fileID: 4927404310612424777}
