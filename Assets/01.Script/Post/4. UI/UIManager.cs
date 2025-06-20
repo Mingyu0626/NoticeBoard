@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     [SerializeField]
     private UI_PostModify _postModify;
+
+    public event Action OnDeletePost;
 
 
     protected override void Awake()
@@ -50,7 +53,6 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     public void CloseAllTab()
     {
-        _postMenu.gameObject.SetActive(false);
-        _postRead.gameObject.SetActive(false);
+        OnDeletePost?.Invoke();
     }
 }

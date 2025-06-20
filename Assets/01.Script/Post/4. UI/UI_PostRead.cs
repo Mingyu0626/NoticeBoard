@@ -19,6 +19,7 @@ public class UI_PostRead : MonoBehaviour
     {
         BackButton.onClick.AddListener(() => UIManager.Instance.OnClickBackButton(gameObject));
         MenuButton.onClick.AddListener(() => UIManager.Instance.OnClickMenuButton(GetComponent<RectTransform>(), _post));
+        UIManager.Instance.OnDeletePost += (() => gameObject.SetActive(false));
     }
 
     public void Refresh(PostDTO postDto)
@@ -30,4 +31,6 @@ public class UI_PostRead : MonoBehaviour
         DescriptionTMP.SetText(postDto.Description);
         LikeCountTMP.SetText(postDto.LikeAccounts.Count.ToString());
     }
+
+    
 }
