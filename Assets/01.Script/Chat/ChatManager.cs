@@ -101,7 +101,7 @@ public class ChatManager : MonoBehaviourSingleton<ChatManager>, IChatClientListe
         Debug.Log("[PhotonChat] Connected");
         int messagesFromHistory = 20;
         // 배열인 이유: 여러 채널을 구독한다. (자유 채널, 공지 채널 등)
-        _client.Subscribe(new[] { DEFAULT_CHANNEL }, messagesFromHistory);
+        _client.Subscribe(DEFAULT_CHANNEL, 0, messagesFromHistory, creationOptions: channelOption);
     }
 
     public void OnDisconnected()
@@ -178,11 +178,17 @@ public class ChatManager : MonoBehaviourSingleton<ChatManager>, IChatClientListe
     public void OnUserSubscribed(string channel, string user)
     {
         Debug.Log($"[PhotonChat] {user} joined {channel}");
+        Chat chat = new Chat(EChatType.System, user, $"{user}님이 방에 입장하였습니다.");
+        _chatList.Add(chat);
+        OnDataChanged?.Invoke();
     }
 
     public void OnUserUnsubscribed(string channel, string user)
     {
         Debug.Log($"[PhotonChat] {user} left {channel}");
+        Chat chat = new Chat(EChatType.System, user, $"{user}님이 방에 퇴장하였습니다.");
+        _chatList.Add(chat);
+        OnDataChanged?.Invoke();
     }
 
     public void SendChatMessage(string message)
